@@ -1,10 +1,14 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ScheduleModule } from '@nestjs/schedule';
+
+import { DataSynchronizerModule } from './features/data-synchronizer/data-synchronizer.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    CacheModule.register({ isGlobal: true }),
+    ScheduleModule.forRoot(),
+    DataSynchronizerModule,
+  ],
 })
 export class AppModule {}
