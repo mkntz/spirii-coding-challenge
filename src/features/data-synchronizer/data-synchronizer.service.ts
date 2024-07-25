@@ -37,7 +37,6 @@ export class DataSynchronizerService {
       (await this.cacheManager.get<
         Record<string, UserAggregatedTransactionsData>
       >(CacheKey.TransactionsAggregatedData)) ?? {};
-    console.log({ transactionsAggregatedData });
 
     const usersPayoutRequests =
       (await this.cacheManager.get<Record<string, UserPayoutRequests>>(
@@ -88,13 +87,13 @@ export class DataSynchronizerService {
     await this.cacheManager.set(
       CacheKey.TransactionsAggregatedData,
       transactionsAggregatedData,
-      3600000,
+      60 * 60 * 1000,
     );
 
     await this.cacheManager.set(
       CacheKey.UsersPayoutRequests,
       usersPayoutRequests,
-      3600000,
+      60 * 60 * 1000,
     );
   }
 }
